@@ -1,0 +1,92 @@
+<app-header></app-header>
+
+
+<div class="container-fluid head">
+    <h1>List of Orders</h1>
+</div>
+<div class="container-fluid ntable">
+    <div class="pad">
+        <select class="form-select float" (change)="onChangeBuyClient($event)">
+            <option>All</option>
+            <option value="{{c.clientid}}" *ngFor="let c of clients">{{c.clientid}}</option>
+        </select>
+    </div>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Buyer Order ID</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Remaining Quantity</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let t of selectedClientBuyOrders">
+                <td>{{t.bid}}</td>
+                <td>{{t.price}}</td>
+                <td>{{t.quantity}}</td>
+                <td>{{t.price*t.quantity}}</td>
+                <td>{{t.remainingquantity}}</td>
+                <div *ngIf="t.status=='Completed' then green else red"></div>
+                <ng-template #green>
+                    <td style="background-color: green; color: white;">{{t.status}}</td>
+                </ng-template>
+                <ng-template #red>
+                    <div *ngIf="t.status=='Waiting' then showRed else yellow"></div>
+                    <ng-template #showRed>
+                        <td style="background-color: rgb(182, 44, 44); color: white;">{{t.status}}</td>
+                    </ng-template>
+                    <ng-template #yellow>
+                        <td style="background-color: yellow; color: black;">{{t.status}}</td>
+                    </ng-template>
+                </ng-template>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+<div class="container-fluid ntable">
+    <div class="pad">
+    <select class="form-select float" (change)="onChangeSellClient($event)">
+        <option>All</option>
+        <option value="{{c.clientid}}" *ngFor="let c of clients">{{c.clientid}}</option>
+    </select>
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Seller Order ID</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Remaining Quantity</th>
+            <th scope="col">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let t of selectedClientSellOrders">
+            <td>{{t.sellid}}</td>
+            <td>{{t.price}}</td>
+            <td>{{t.quantity}}</td>
+            <td>{{t.price*t.quantity}}</td>
+            <td>{{t.remainingquantity}}</td>
+            <div *ngIf="t.status=='Completed' then green else red"></div>
+                <ng-template #green>
+                    <td style="background-color: green; color: white;">{{t.status}}</td>
+                </ng-template>
+                <ng-template #red>
+                    <div *ngIf="t.status=='Waiting' then showRed else yellow"></div>
+                    <ng-template #showRed>
+                        <td style="background-color: rgb(182, 44, 44); color: white;">{{t.status}}</td>
+                    </ng-template>
+                    <ng-template #yellow>
+                        <td style="background-color: yellow; color: black;">{{t.status}}</td>
+                    </ng-template>
+                </ng-template>
+        </tr>
+    </tbody>
+</table>
+</div>
